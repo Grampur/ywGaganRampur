@@ -10,7 +10,7 @@ img4=pygame.image.load('images/p4.png')
 
 l=[img0,img1,img2,img3,img4]'''
 l=[]
-for a in range(0,12,1):
+for a in range(0,18,1):
     l.append(pygame.transform.scale(pygame.image.load('images/p'+str(a)+'.png'),(100,100)))
 x=0
 clock=pygame.time.Clock()
@@ -24,5 +24,5 @@ while True:
             exit()
     screen.blit(l[x],(540,320))
     x=x+1
-    if x>=12:
+    if x>=18:
         x=0
