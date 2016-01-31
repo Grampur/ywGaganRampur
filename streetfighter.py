@@ -97,7 +97,7 @@ while True:
             if event.key==K_UP:
               print('"Up arrow" key pressed')
     if r==1:
-        S1.Move(screen,S1.Runforward)
+        S1.Move(screen,S1.RunForward)
         '''print(x)
         screen.blit(RunForward[x],(540,320))
         x=x+1
