@@ -25,14 +25,18 @@ class Sfighter:
                 self.SpecialMove.append(pygame.transform.scale(pygame.image.load('images/p'+str(a)+'.png'),(100,100)))
     def Move(self,screen,Spritelist):
         self.Spritelist=Spritelist
-        print(self.Spritecount,len(self.Spritelist))
-        screen.blit(self.Spritelist[self.Spritecount],(540,320))
-        if len(self.Spritelist)>1:
+        if len(self.Spritelist)>=1:
             print(self.Spritecount)
             self.Spritecount=self.Spritecount+1
-            if self.Spritecount>=len(self.Spritelist):
+            if self.Spritecount>=len(self.Spritelist) or len(self.Spritelist)==1:
                 self.Spritecount=0
                 print(self.Spritecount)
+        #self.Spritecount=0
+        print(self.Spritecount,len(self.Spritelist))
+        screen.fill((0,0,0))
+        screen.blit(self.Spritelist[self.Spritecount],(540,320))
+        pygame.display.update()
+
 
         
     

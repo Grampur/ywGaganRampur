@@ -58,21 +58,28 @@ while True:
             if event.key==K_d:
                 print('"Run or D" key pressed')
                 r=1
+               # S1.Spritecount=0
+               # S1.Move(screen,S1.RunForward)
             if event.key==K_e:
                 print('"Punch or E" key pressed')
                 p=1
             if event.key==K_SPACE:
                 print('"Jump or SPACEBAR" key pressed')
                 s=1
+                #S1.Spritecount=0
             if event.key==K_f:
                 print('"Duck or F" key pressed')
                 f=1
+                #S1.Spritecount=0
+               # S1.Move(screen,S1.Duck)
             if event.key==K_q:
                 print('"Slide or q" is pressed')
                 q=1
             if event.key==K_t:
                 print('"SpecialMove or t" is pressed')
                 t=1
+               # S1.Spritecount=0
+               # S1.Move(screen,S1.SpecialMove)
             if event.key==K_UP:
               print ('"Up" arrow" key pressed')
         if event.type==KEYUP:
@@ -97,6 +104,7 @@ while True:
             if event.key==K_UP:
               print('"Up arrow" key pressed')
     if r==1:
+        #S1.Spritecount=0
         S1.Move(screen,S1.RunForward)
         '''print(x)
         screen.blit(RunForward[x],(540,320))
@@ -105,6 +113,7 @@ while True:
             x=0
             print(x)'''
     elif p==1:
+        S1.Spritecount=0
         S1.Move(screen,S1.Punch)        
         '''print(Punch)
         screen.blit(Punch[x],(540,320))
@@ -112,13 +121,15 @@ while True:
         if x>=2:
             x=0'''
     elif s==1:
+        S1.Spritecount=0
         S1.Move(screen,S1.Jump)
-        '''screen.blit(Jump[0],(540,320))
+        '''screen.bdflit(Jump[0],(540,320))
         x=x+1
         if x>=1:
         x=0
         print(Jump,x)'''
     elif f==1:
+        S1.Spritecount=0
         S1.Move(screen,S1.Duck)
         '''print(x)
         screen.blit(Duck[0],(540,320))
@@ -126,13 +137,14 @@ while True:
         if x>=1:
         x=0'''
     elif q==1:
+        S1.Spritecount=0
         S1.Move(screen,S1.Slide)
         '''screen.blit(Slide[0],(540,320))
-        x=x+1
         if x>=1:
         x=0'''
     elif t==1:
-        S1.Move(screen,S1.Slide)
+        S1.Spritecount=0
+        S1.Move(screen,S1.SpecialMove)
         '''print(0)
         screen.blit(SpecialMove[0],(540,320))
         x=x+1
