@@ -1,6 +1,6 @@
 import pygame
 class Sfighter:
-    def __init__(self):
+    def __init__(self,image):
         self.l=[]
         self.Jump=[]
         self.RunForward=[]
@@ -8,21 +8,36 @@ class Sfighter:
         self.Duck=[]
         self.Slide=[]
         self.SpecialMove=[]
+        self.startx=240
+        self.starty=240
         self.Spritecount=0
-        for a in range(0,19,1):
-            self.l.append(pygame.transform.scale(pygame.image.load('images/p'+str(a)+'.png'),(125,125)))
-            if a==7 or a==18:
-                self.Punch.append(pygame.transform.scale(pygame.image.load('images/p'+str(a)+'.png'),(125,125)))
-            if a==6:
-                self.Jump.append(pygame.transform.scale(pygame.image.load('images/p'+str(a)+'.png'),(125,125)))
-            if a==3 or a==4 or a==5:
-                self.RunForward.append(pygame.transform.scale(pygame.image.load('images/p'+str(a)+'.png'),(125,125)))    
-            if a==9:
-                self.Duck.append(pygame.transform.scale(pygame.image.load('images/p'+str(a)+'.png'),(125,125)))    
-            if a==8:
-                self.Slide.append(pygame.transform.scale(pygame.image.load('images/p'+str(a)+'.png'),(125,125)))
-            if a==10:
-                self.SpecialMove.append(pygame.transform.scale(pygame.image.load('images/p'+str(a)+'.png'),(125,125)))
+        z=125
+        if image=='p':
+            for a in range(0,19,1):
+                self.l.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))
+                if a==7 or a==18:
+                    self.Punch.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))
+                if a==6:
+                    self.Jump.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))
+                if a==3 or a==4 or a==5:
+                    self.RunForward.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))    
+                if a==9:
+                    self.Duck.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))    
+                if a==8:
+                    self.Slide.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))
+                if a==10:
+                    self.SpecialMove.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))
+        if image=='pD':
+            for a in range(0,15,1):
+                self.l.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))
+                if a==0 or a==1 or a==2 or a==3 or a==4 or a==5 or a==6:
+                    self.RunForward.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))
+                if a==8 or a==9 or a==10:
+                    self.Jump.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))
+                if a==11 or a==12:
+                    self.Duck.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))    
+                if a==13:
+                    self.SpecialMove.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))
     def Move(self,screen,Spritelist):
         self.Spritelist=Spritelist
         if len(self.Spritelist)>=1:
@@ -30,7 +45,7 @@ class Sfighter:
             if self.Spritecount>=len(self.Spritelist) or len(self.Spritelist)==1:
                 self.Spritecount=0
         screen.fill((0,0,0))
-        screen.blit(self.Spritelist[self.Spritecount],(540,320))
+        screen.blit(self.Spritelist[self.Spritecount],(self.startx,self.starty))
         pygame.display.update()
 
 
