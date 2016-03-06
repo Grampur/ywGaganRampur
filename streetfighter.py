@@ -3,9 +3,10 @@ screen=pygame.display.set_mode((1080,640))
 from pygame.locals import*
 pygame.display.set_caption('Street Fighter')
 from streetfighterclass import Sfighter
-S1=Sfighter('p')
-S2=Sfighter('pD')
+S1=Sfighter('p',140,240)
+S2=Sfighter('pD',780,240)
 clock=pygame.time.Clock()
+Background=pygame.transform.scale(pygame.image.load('images/SR6.gif'),1080,640)
 #####################################
 a=0
 b=0
@@ -25,6 +26,7 @@ while True:
     clock.tick(5)
     pygame.display.update()
     screen.fill((0,0,0))
+    screen.blit(Background,(0,0))
     for event in pygame.event.get():
         if event.type==QUIT:
             pygame.quit()
@@ -74,7 +76,7 @@ while True:
     if a==1:
         S1.Move(screen,S1.RunForward)
     elif b==1:
-        S1.Spritecount=0
+        S1.Spritecount=0 
         S1.Move(screen,S1.Punch)        
     elif e==1:
         S1.Spritecount=0
@@ -89,19 +91,19 @@ while True:
         S1.Spritecount=0
         S1.Move(screen,S1.SpecialMove)
     else:
-        screen.blit(S1.l[0],(240,240))
+        screen.blit(S1.l[0],(140,240))
     if k==1:
-        S2.Spritecount=0
+        #S2.Spritecount=0
         S2.Move(screen,S2.Jump)
     elif j==1:
-        S2.Spritecount=0
+        #S2.Spritecount=0
         print(S2.RunForward)
         S2.Move(screen,S2.RunForward)
     elif l==1:
-        S2.Spritecount=0
+        #S2.Spritecount=0
         S2.Move(screen,S2.Duck)
     elif m==1:
-        S2.Spritecount=0
+        #S2.Spritecount=0
         S2.Move(screen,S2.SpecialMove)
     else:
-        screen.blit(S2.l[0],(480,480))
+        screen.blit(S2.l[0],(780,240))
