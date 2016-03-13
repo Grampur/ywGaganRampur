@@ -11,7 +11,9 @@ class Sfighter:
         self.startx=startx
         self.starty=starty
         self.Spritecount=0
-        z=125
+        z=175
+        self.direction=0
+        self.xchange=0
         if image=='p':
             for a in range(0,19,1):
                 self.l.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))
@@ -44,12 +46,11 @@ class Sfighter:
             self.Spritecount=self.Spritecount+1
             if self.Spritecount>=len(self.Spritelist) or len(self.Spritelist)==1:
                 self.Spritecount=0
-        #screen.fill((0,0,0))
-
         print(self.Spritecount,len(self.Spritelist))
-        screen.blit(self.Spritelist[self.Spritecount],(self.startx,self.starty))
-        
-        #pygame.display.update()
+        if self.direction==0:
+            screen.blit(self.Spritelist[self.Spritecount],(self.startx,self.starty))
+        else:
+            screen.blit(pygame.transform.flip(self.Spritelist[self.Spritecount],True,False),(self.startx,self.starty))
 
 
         
