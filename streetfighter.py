@@ -56,19 +56,19 @@ while True:
                 m=1
             if event.key==K_d:
                 p1right=1
-                S1.direction=1
+                S1.direction=0
                 S1.xchange=-30
             if event.key==K_a:
                 p1left=1
-                S1.direction=0
+                S1.direction=1
                 S1.xchange=30
             if event.key==K_LEFT:
                 p2left=1
-                S2.direction=1
+                S2.direction=0
                 S2.xchange=-30
             if event.key==K_RIGHT:
                 p2right=1
-                S2.direction=0
+                S2.direction=1
                 S2.xchange=30
         if event.type==KEYUP:
            # if event.key==K_d:
@@ -102,6 +102,9 @@ while True:
     if p1right==1:
         S1.Move(screen,S1.RunForward)
         S1.startx=S1.startx-S1.xchange
+    elif p1left==1:
+        S1.Move(screen,S1.RunForward)
+        S1.startx=S1.startx-S1.xchange
     elif b==1:
         S1.Spritecount=0 
         S1.Move(screen,S1.Punch)        
@@ -118,10 +121,16 @@ while True:
         S1.Spritecount=0
         S1.Move(screen,S1.SpecialMove)
     else:
-        screen.blit(S1.l[0],(S1.startx,S1.starty))
-    if k==1:
+        if S1.direction==0:
+            screen.blit(S1.l[0],(S1.startx,S1.starty))
+        else:
+            screen.blit(pygame.transform.flip(S1.l[0],True,False),(S1.startx,S1.starty))
+    if k==1:               
         S2.Move(screen,S2.Jump)
     elif p2left==1:
+        S2.Move(screen,S2.RunForward)
+        S2.startx=S2.startx+S2.xchange
+    elif p2right==1:
         S2.Move(screen,S2.RunForward)
         S2.startx=S2.startx+S2.xchange
     elif l==1:
@@ -129,4 +138,7 @@ while True:
     elif m==1:
         S2.Move(screen,S2.SpecialMove)
     else:
-        screen.blit(S2.l[0],(S2.startx,S2.starty))
+        if S2.direction==0:
+            screen.blit(S2.l[0],(S2.startx,S2.starty))
+        else:
+            screen.blit(pygame.transform.flip(S2.l[0],True,False),(S2.startx,S2.starty))
