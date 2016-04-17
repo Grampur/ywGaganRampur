@@ -1,0 +1,3 @@
+from RPI.GPIO import GPIO
+GPIO.setup(12,)
+GPIO.seetup(16,)
