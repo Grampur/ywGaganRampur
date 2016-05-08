@@ -6,6 +6,8 @@ GPIO.setup(2,GPIO.OUT)
 GPIO.setup(3,GPIO.OUT)
 GPIO.setup(14,GPIO.OUT)
 GPIO.setup(15,GPIO.OUT)
+GPIO.setup(21,GPIO.IN)
+GPIO.setup(16,GPIO.OUT)
 
 GPIO.output(2,GPIO.HIGH) #Makes the right wheel go forward 
 GPIO.output(3,GPIO.LOW)
