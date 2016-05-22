@@ -1,7 +1,10 @@
 import RPi.GPIO as GPIO
 from time import sleep
 from threading import Thread
-
+def myfunc(i):
+    print('Sleeping 5 sec from thread',i)
+    time.sleep(5)
+    print('finished sleeping from thread ',i)
 class Car:
     def __init__(self,lma,lmb,rma,rmb):
         self.lma=lma
@@ -13,15 +16,14 @@ class Car:
         GPIO.setup(self.rmb,GPIO.OUT)
         GPIO.setup(self.lma,GPIO.OUT)
         GPIO.setup(self.lmb,GPIO.OUT)
-
     def Forward(self):
-        GPIO.output(self.rma,GPIO.LOW)
-        GPIO.output(self.rmb,GPIO.HIGH)
+        GPIO.output(self.rma,GPIO.HIGH)
+        GPIO.output(self.rmb,GPIO.LOW)
         GPIO.output(self.lma,GPIO.LOW)
         GPIO.output(self.lmb,GPIO.HIGH)
     def Backward(self):
-        GPIO.output(self.rma,GPIO.HIGH)
-        GPIO.output(self.rmb,GPIO.LOW)
+        GPIO.output(self.rma,GPIO.LOW)
+        GPIO.output(self.rmb,GPIO.HIGH)
         GPIO.output(self.lma,GPIO.HIGH)
         GPIO.output(self.lmb,GPIO.LOW)
     def Stop(self):
@@ -30,8 +32,8 @@ class Car:
         GPIO.output(self.lma,GPIO.LOW)
         GPIO.output(self.lmb,GPIO.LOW)      
     def Left(self):
-        GPIO.output(self.rma,GPIO.LOW)
-        GPIO.output(self.rmb,GPIO.HIGH)
+        GPIO.output(self.rma,GPIO.HIGH)
+        GPIO.output(self.rmb,GPIO.LOW)
         GPIO.output(self.lma,GPIO.LOW)
         GPIO.output(self.lmb,GPIO.LOW)
     def Right(self):
@@ -50,21 +52,26 @@ class Car:
               termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
         return ch
     def setupsensors(self):
-        #GPIO_TRIGGER=12
-        #GPIO_ECHO=6
+        GPIO_TRIGGER=12
+        GPIO_ECHO=6
         GPIO.setup(21,GPIO.IN)
         GPIO.setup(16,GPIO.OUT)
-        #GPIO.setup(GPIO_TRIGGER,GPIO.OUT)       #Trigger    
-        #GPIO.setup(GPIO_ECHO,GPIO.IN)           #Echo
-        #GPIO.output(GPIO_TRIGGER,False)
-setupsensors()
-Car0=Car(2,3,14,15)
-S1=Thread(target=Sensor, args=(21,))
+        GPIO.setup(GPIO_TRIGGER,GPIO.OUT)       #Trigger    
+        GPIO.setup(GPIO_ECHO,GPIO.IN)           #Echo
+        GPIO.output(GPIO_TRIGGER,False)
 def Sensor(i):          
-    a=GPIO.input(i)
-    print(a)
+    while True:
+        sleep(2)
+        a=GPIO.input(i)
+        print(a)
+Car0=Car(2,3,14,15)
+Car0.setupsensors()
+S1=Thread(target=Sensor, args=(21,))
 S1.start()
-'''while True:
+#for i in range(10):
+    #t=Thread(target=myfunc, args=(i, ))
+    #t.start()
+while True:
     key=Car0.getch()
     print(key)
     if key=='w':
@@ -80,9 +87,4 @@ S1.start()
     if key=='q':
           GPIO.cleanup()
           quit()
-    if a==1:
-          GPIO.output(16,GPIO.LOW)
-    else:
-          GPIO.output(16,GPIO.HIGH)
 
-'''
