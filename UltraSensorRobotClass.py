@@ -1,46 +1,47 @@
 import RPi.GPIO as GPIO
 from time import sleep
+import time
 from threading import Thread
 def myfunc(i):
     print('Sleeping 5 sec from thread',i)
     time.sleep(5)
     print('finished sleeping from thread ',i)
 class Car:
-    def __init__(self,lma,lmb,rma,rmb):
-        self.lma=lma
-        self.lmb=lmb
-        self.rma=rma
-        self.rmb=rmb
+    def __init__(self,lwa,lwb,rwa,rwb):
+        self.lwa=lwa
+        self.lwb=lwb
+        self.rwa=rwa
+        self.rwb=rwb
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.rma,GPIO.OUT)
-        GPIO.setup(self.rmb,GPIO.OUT)
-        GPIO.setup(self.lma,GPIO.OUT)
-        GPIO.setup(self.lmb,GPIO.OUT)
+        GPIO.setup(self.rwa,GPIO.OUT)
+        GPIO.setup(self.rwb,GPIO.OUT)
+        GPIO.setup(self.lwa,GPIO.OUT)
+        GPIO.setup(self.lwb,GPIO.OUT)
     def Forward(self):
-        GPIO.output(self.rma,GPIO.HIGH)
-        GPIO.output(self.rmb,GPIO.LOW)
-        GPIO.output(self.lma,GPIO.LOW)
-        GPIO.output(self.lmb,GPIO.HIGH)
+        GPIO.output(self.rwa,GPIO.HIGH)
+        GPIO.output(self.rwb,GPIO.LOW)
+        GPIO.output(self.lwa,GPIO.LOW)
+        GPIO.output(self.lwb,GPIO.HIGH)
     def Backward(self):
-        GPIO.output(self.rma,GPIO.LOW)
-        GPIO.output(self.rmb,GPIO.HIGH)
-        GPIO.output(self.lma,GPIO.HIGH)
-        GPIO.output(self.lmb,GPIO.LOW)
+        GPIO.output(self.rwa,GPIO.LOW)
+        GPIO.output(self.rwb,GPIO.HIGH)
+        GPIO.output(self.lwa,GPIO.HIGH)
+        GPIO.output(self.lwb,GPIO.LOW)
     def Stop(self):
-        GPIO.output(self.rma,GPIO.LOW)
-        GPIO.output(self.rmb,GPIO.LOW)
-        GPIO.output(self.lma,GPIO.LOW)
-        GPIO.output(self.lmb,GPIO.LOW)      
+        GPIO.output(self.rwa,GPIO.LOW)
+        GPIO.output(self.rwb,GPIO.LOW)
+        GPIO.output(self.lwa,GPIO.LOW)
+        GPIO.output(self.lwb,GPIO.LOW)      
     def Left(self):
-        GPIO.output(self.rma,GPIO.HIGH)
-        GPIO.output(self.rmb,GPIO.LOW)
-        GPIO.output(self.lma,GPIO.LOW)
-        GPIO.output(self.lmb,GPIO.LOW)
+        GPIO.output(self.rwa,GPIO.HIGH)
+        GPIO.output(self.rwb,GPIO.LOW)
+        GPIO.output(self.lwa,GPIO.LOW)
+        GPIO.output(self.lwb,GPIO.LOW)
     def Right(self):
-        GPIO.output(self.rma,GPIO.LOW)
-        GPIO.output(self.rmb,GPIO.LOW)
-        GPIO.output(self.lma,GPIO.LOW)
-        GPIO.output(self.lmb,GPIO.HIGH)
+        GPIO.output(self.rwa,GPIO.LOW)
+        GPIO.output(self.rwb,GPIO.LOW)
+        GPIO.output(self.lwa,GPIO.LOW)
+        GPIO.output(self.lwb,GPIO.HIGH)
     def getch(self):
         import sys, tty, termios
         fd=sys.stdin.fileno()
@@ -59,32 +60,52 @@ class Car:
         GPIO.setup(GPIO_TRIGGER,GPIO.OUT)       #Trigger    
         GPIO.setup(GPIO_ECHO,GPIO.IN)           #Echo
         GPIO.output(GPIO_TRIGGER,False)
+        stop=time.time()
+        start=time.time()
+        while True:
+            GPIO.output(GPIO_TRIGGER, True)
+            time.sleep(1)
+            GPIO.output(GPIO_TRIGGER,False)
+            start=time.time()
+            while GPIO.input(GPIO_ECHO)==0:
+                start=time.time()
+                #print("Start:",start)
+            while GPIO.input(GPIO_ECHO)==1:
+                stop=time.time()
+                #print("Stop:",stop)
+            if stop-start>=0:
+                elapsed=stop-start
+                distance=elapsed*34000
+                distance=distance/2
+                #print('Distance :',distance)
 def Sensor(i):          
     while True:
         sleep(2)
         a=GPIO.input(i)
         print(a)
 Car0=Car(2,3,14,15)
-Car0.setupsensors()
-S1=Thread(target=Sensor, args=(21,))
-S1.start()
+#Car0.setupsensors()
+#S1=Thread(target=Sensor, args=(21,))
+#S1.start()
 #for i in range(10):
     #t=Thread(target=myfunc, args=(i, ))
     #t.start()
-while True:
-    key=Car0.getch()
-    print(key)
-    if key=='w':
-          Car0.Forward()
-    if key=='s':
-          Car0.Backward()
-    if key=='a':
-          Car0.Left()
-    if key=='d':
-          Car0.Right()
-    if key=='e':
-          Car0.Stop()
-    if key=='q':
-          GPIO.cleanup()
-          quit()
+def Moves():
+    while True:
+        key=Car0.getch()
+        print(key)
+        if key=='w':
+              Car0.Forward()
+        if key=='s':
+              Car0.Backward()
+        if key=='a':
+              Car0.Left()
+        if key=='d':
+              Car0.Right()
+        if key=='e':
+              Car0.Stop()
+        if key=='q':
+              GPIO.cleanup()
+              quit()
+
 

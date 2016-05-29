@@ -12,9 +12,9 @@ while True:
     time.sleep(0.00001)
     GPIO.output(GPIO_TRIGGER,False)
     start=time.time()
-    while GPIO.input(GPIO_ECHO)==0:
+    if GPIO.input(GPIO_ECHO)==0:
         start=time.time()
-    while GPIO.input(GPIO_ECHO)==1:
+    if GPIO.input(GPIO_ECHO)==1:
         stop=time.time()
     elapsed=stop-start
     distance=elapsed*34000
