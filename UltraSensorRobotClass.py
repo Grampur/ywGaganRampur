@@ -77,19 +77,13 @@ class Car:
                 elapsed=stop-start
                 distance=elapsed*34000
                 distance=distance/2
-                #print('Distance :',distance)
+                print('Distance :',distance)
+
 def Sensor(i):          
     while True:
         sleep(2)
         a=GPIO.input(i)
         print(a)
-Car0=Car(2,3,14,15)
-#Car0.setupsensors()
-#S1=Thread(target=Sensor, args=(21,))
-#S1.start()
-#for i in range(10):
-    #t=Thread(target=myfunc, args=(i, ))
-    #t.start()
 def Moves():
     while True:
         key=Car0.getch()
@@ -107,5 +101,14 @@ def Moves():
         if key=='q':
               GPIO.cleanup()
               quit()
+Car0=Car(2,3,14,15)
+S1=Thread(target=Sensor, args=(21,))
+S1.start()
+#Car0.setupsensors()
+S2=Thread(target=Car0.setupsensors)
+S2.start()
+S3=Thread(target=Moves)
+S3.start()
+
 
 
