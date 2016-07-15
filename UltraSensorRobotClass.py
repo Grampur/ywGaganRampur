@@ -75,7 +75,7 @@ class Car:
                 #print("Stop:",stop)
             if stop-start>=0:
                 elapsed=stop-start
-                distance=elapsed*34000
+                distance=elapsed*34000 
                 distance=distance/2
                 print('Distance :',distance)
 
@@ -87,7 +87,7 @@ def Sensor(i):
 def Moves():
     while True:
         key=Car0.getch()
-        print(key)
+        print(key,'*****************')
         if key=='w':
               Car0.Forward()
         if key=='s':
@@ -101,14 +101,15 @@ def Moves():
         if key=='q':
               GPIO.cleanup()
               quit()
+    
 Car0=Car(2,3,14,15)
 S1=Thread(target=Sensor, args=(21,))
 S1.start()
 #Car0.setupsensors()
 S2=Thread(target=Car0.setupsensors)
 S2.start()
-S3=Thread(target=Moves)
-S3.start()
-
+#S3=Thread(target=Moves)
+#S3.start()
+Moves() #Mainthread
 
 
