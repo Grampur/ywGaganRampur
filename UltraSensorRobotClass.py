@@ -20,13 +20,13 @@ class Car:
     def Forward(self):
         GPIO.output(self.rwa,GPIO.HIGH)
         GPIO.output(self.rwb,GPIO.LOW)
-        GPIO.output(self.lwa,GPIO.LOW)
-        GPIO.output(self.lwb,GPIO.HIGH)
+        GPIO.output(self.lwa,GPIO.HIGH)
+        GPIO.output(self.lwb,GPIO.LOW)
     def Backward(self):
         GPIO.output(self.rwa,GPIO.LOW)
         GPIO.output(self.rwb,GPIO.HIGH)
-        GPIO.output(self.lwa,GPIO.HIGH)
-        GPIO.output(self.lwb,GPIO.LOW)
+        GPIO.output(self.lwa,GPIO.LOW)
+        GPIO.output(self.lwb,GPIO.HIGH)
     def Stop(self):
         GPIO.output(self.rwa,GPIO.LOW)
         GPIO.output(self.rwb,GPIO.LOW)
@@ -40,8 +40,8 @@ class Car:
     def Right(self):
         GPIO.output(self.rwa,GPIO.LOW)
         GPIO.output(self.rwb,GPIO.LOW)
-        GPIO.output(self.lwa,GPIO.LOW)
-        GPIO.output(self.lwb,GPIO.HIGH)
+        GPIO.output(self.lwa,GPIO.HIGH)
+        GPIO.output(self.lwb,GPIO.LOW)
     def getch(self):
         import sys, tty, termios
         fd=sys.stdin.fileno()
@@ -77,6 +77,7 @@ class Car:
                 elapsed=stop-start
                 distance=elapsed*34000 
                 distance=distance/2
+                sleep(2)
                 print('Distance :',distance)
 
 def Sensor(i):          
@@ -87,9 +88,10 @@ def Sensor(i):
 def Moves():
     while True:
         key=Car0.getch()
-        print(key,'*****************')
+        print(key)
         if key=='w':
               Car0.Forward()
+              print('Hello')
         if key=='s':
               Car0.Backward()
         if key=='a':
@@ -101,7 +103,6 @@ def Moves():
         if key=='q':
               GPIO.cleanup()
               quit()
-    
 Car0=Car(2,3,14,15)
 S1=Thread(target=Sensor, args=(21,))
 S1.start()
