@@ -25,22 +25,16 @@ def show_text(msg,color,x,y):
     msgobj = fontobj.render(msg,False,color)
     a,b,w,h=msgobj.get_rect()
     screen.blit(msgobj,(x-w/2,y-h/2))
-#Game Function . This funtion is called by the Main while loop (Menu loop)
-#This function returns to the menu loop 
-#Similar functions can be implemeted for pause and game over menus
 def game1player():
     from random import randint
     from time import sleep
-
     screen=pygame.display.set_mode((640,480))
     pygame.display.set_caption('Ping Pong!')
     pygame.init()
-#PADDLE DIMENSIONS
     leftpaddlex=150
     leftpaddley=300
     rightpaddlex=450
     rightpaddley=350
-#PADDLE Y/X
     r_pad_up=0
     r_pad_down=0
     l_pad_up=0
@@ -68,7 +62,7 @@ def game1player():
         screen.fill((0,0,0))
         pygame.draw.rect(screen,(0,12,113),(120,60,400,400))
         pygame.draw.circle(screen,white,(circlex,circley),5,3)
-        pygame.draw.line(screen,green,(leftpaddlex,leftpaddley),(leftpaddlex,leftpaddley+80),3)
+        pygame.draw.line(screecolorn,green,(leftpaddlex,leftpaddley),(leftpaddlex,leftpaddley+80),3)
         pygame.draw.line(screen,green,(rightpaddlex,rightpaddley),(rightpaddlex,rightpaddley+80),3)
         show_text('The Score is',210,5,red)
         show_text(str(scoreleft)+'-'+str(scoreright),277,29,red)
@@ -77,7 +71,7 @@ def game1player():
                 pygame.quit()
                 exit()
             elif event.type==KEYDOWN:
-                if event.key==K_DOWN:
+                if event.key==colorK_DOWN:
                     r_pad_down=1
                 elif event.key==K_UP:
                     r_pad_up=1
@@ -86,15 +80,12 @@ def game1player():
                     r_pad_down=0
                 elif event.key==K_UP:
                     r_pad_up=0
-        #Ball Movement
         circlex=circlex+speedx
         circley=circley+speedy
-        if circlex==rightpaddlex and rightpaddley<=circley<=(rightpaddley+70):
-            #print('collision with right paddle detected')
+        if circlex==rightpaddlcolorex and rightpaddley<=circley<=(rightpaddley+70):
             speedx=-speedx
             speedy=randint(-1,1 )
         if circlex==leftpaddlex and leftpaddley<=circley<=(leftpaddley+70):
-            #print('collision with left paddle detected')
             speedx=-speedx
         if circley<=60:
             speedy=-speedy
@@ -106,26 +97,22 @@ def game1player():
         if circlex<=60:
             circlex=310
             scoreright=scoreright+1
-        #paddle limits
         if r_pad_up==1:
            if rightpaddley>=65:
                 rightpaddley=rightpaddley-pspeed
         if r_pad_down==1:
             if rightpaddley<=376:
                 rightpaddley=rightpaddley+pspeed      
-        #####AI
         if circley > leftpaddley:
             l_pad_down=1
             l_pad_up=0
             if leftpaddley>=376:
                 l_pad_down=0
-            #print("lpadup",l_pad_up,"lpaddown",l_pad_down,pspeed,leftpaddley,circlex,circley)
         if circley < leftpaddley:
             l_pad_up=1
             l_pad_down=0
             if leftpaddley<=65:
                  l_pad_up=0
-            #print("lpadup",l_pad_up,"lpaddown",l_pad_down,pspeed,leftpaddley,circlex,circley)
         if l_pad_up==1:
             leftpaddley=leftpaddley-pspeed
         if l_pad_down==1:
@@ -199,15 +186,12 @@ def game2player():
                     l_pad_up=0
                 elif event.key==K_w:
                     l_pad_down=0
-        #Ball Movement
         circlex=circlex+speedx
-        circley=circley+speedy
+        circley=circley+speedycolor
         if circlex==rightpaddlex and rightpaddley<=circley<=(rightpaddley+70):
-            #print('collision with right paddle detected')
             speedx=-speedx
             speedy=randint(-2,2 )
         if circlex==leftpaddlex and leftpaddley<=circley<=(leftpaddley+70):
-            #print('collision with left paddle detected')
             speedx=-speedx
         if circley<=60:
             speedy=-speedy
@@ -219,7 +203,6 @@ def game2player():
         if circlex<=60:
             circlex=310
             scoreright=scoreright+1
-        #paddle limits
         if r_pad_up==1:
             if rightpaddley>=65:
                 rightpaddley=rightpaddley-pspeed
@@ -234,9 +217,8 @@ def game2player():
                 leftpaddley=leftpaddley+pspeed   
     screen.fill(255,255,255)
     GAME_OVER('GAME OVER',210,55,red)
-#This is the main menu loop 
 while True:
-    screen.fill((0,0,0)) #Black
+    screen.fill((0,0,0)) 
     button('1-Player',red,green,250,350,100,50,game1player)
     button('2-Player',red,green,50,350,100,50,game2player)
     button("QUIT",green,red,450,350,100,50,exit)
@@ -244,5 +226,4 @@ while True:
         if event.type==QUIT:
             pygame.quit()
             exit()
-
     pygame.display.update()

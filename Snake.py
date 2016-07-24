@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 from random import randint
+from time import sleep
 pygame.init()
 clock=pygame.time.Clock()
 screen=pygame.display.set_mode((640,640))
@@ -12,16 +13,37 @@ pygame.display.set_caption('Snake')
 red=(255,0,0)
 green=(0,255,0)
 blue=(0,0,255)
+white=(255,255,255)
+black=(0,0,0)
 up=0
 down=0
 left=0
 right=0
+score=0
+snakelist=[]
+snakelength=0
+def snakebody():
+    for snake in snakelist:
+        pygame.draw.rect(screen,green,(snake[0],snake[1],10,10),5)
+def show_text(msg,x,y,color):
+    fontobj= pygame.font.SysFont('comicsans',20)
+    msgobj = fontobj.render(msg,False,color)
+    screen.blit(msgobj,(x,y))
 while True:
-    clock.tick(50)
+    clock.tick(20)
     pygame.display.update()
     screen.fill((0,0,0))
+    snakehead=[]
+    snakehead.append(snakex)
+    snakehead.append(snakey)
+    snakelist.append(snakehead)
+    if len(snakelist) > snakelength:
+        del snakelist[0]
+    snakebody()
     pygame.draw.rect(screen,red,(foodx,foody,10,10),5)
     pygame.draw.rect(screen,green,(snakex,snakey,10,10),5)
+    show_text('Your score is:',460,5,blue)
+    show_text(str(score),550,5,blue)
     if up==1:
         snakey=snakey-10
     if down==1:
@@ -33,7 +55,15 @@ while True:
     #print(up,down,left,right)
     if (foodx,foody)==(snakex,snakey):
         print('collision')
-        foodx,foody=randint(0,640) // 10)*10
+        foodx=(randint(0,640) // 10)*10
+        foody=(randint(0,640) // 10)*10
+        score=score+1
+        snakelength=snakelength+1
+    print(snakelist)
+    if 0>snakex or 640<snakey or 640<snakex or 0>snakey:
+        print('YOu lost the game')
+        sleep(2)
+        quit()
     for event in pygame.event.get():
         if event.type==KEYDOWN:
             if event.key==K_w:
