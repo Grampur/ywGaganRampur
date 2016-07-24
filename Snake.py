@@ -17,7 +17,7 @@ down=0
 left=0
 right=0
 while True:
-    clock.tick(15)
+    clock.tick(50)
     pygame.display.update()
     screen.fill((0,0,0))
     pygame.draw.rect(screen,red,(foodx,foody,10,10),5)
@@ -30,9 +30,10 @@ while True:
         snakex=snakex-10
     if right==1:
         snakex=snakex+10
-    print(up,down,left,right)
+    #print(up,down,left,right)
     if (foodx,foody)==(snakex,snakey):
         print('collision')
+        foodx,foody=randint(0,640) // 10)*10
     for event in pygame.event.get():
         if event.type==KEYDOWN:
             if event.key==K_w:
