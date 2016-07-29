@@ -24,11 +24,20 @@ p1right=0
 p1left=0
 p2left=0
 p2right=0
+red=(255,0,0)
+green=(0,255,0)
+blue=(0,0,255)
+white=(255,255,255)
+black=(0,0,0)
+p1health=300
+p2health=300
 while True:
     clock.tick(5)
     pygame.display.update()
     screen.fill((0,0,0))
     screen.blit(Background,(0,0))
+    pygame.draw.rect(screen,green,(5,5,p1health,20))
+    pygame.draw.rect(screen,green,(775,5,p2health,20))
     for event in pygame.event.get():
         if event.type==QUIT:
             pygame.quit()
@@ -106,8 +115,12 @@ while True:
         S1.Move(screen,S1.RunForward)
         S1.startx=S1.startx-S1.xchange
     elif b==1:
+        print(S1.startx,S2.startx)
         S1.Spritecount=0 
-        S1.Move(screen,S1.Punch)        
+        S1.Move(screen,S1.Punch)
+        if S1.startx+175 > S2.startx:
+            print('punch')
+            p2health=p2health-25
     elif e==1:
         S1.Spritecount=0
         S1.Move(screen,S1.Jump)

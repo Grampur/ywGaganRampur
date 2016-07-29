@@ -46,9 +46,9 @@ class Sfighter:
             self.Spritecount=self.Spritecount+1
             if self.Spritecount>=len(self.Spritelist) or len(self.Spritelist)==1:
                 self.Spritecount=0
-        print(self.Spritecount,len(self.Spritelist))
+        #print(self.Spritecount,len(self.Spritelist))
         if self.direction==0:
-            print('jo')
+            #print('jo')
             screen.blit(self.Spritelist[self.Spritecount],(self.startx,self.starty))
         else:
             screen.blit(pygame.transform.flip(self.Spritelist[self.Spritecount],True,False),(self.startx,self.starty))
