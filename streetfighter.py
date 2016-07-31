@@ -1,8 +1,10 @@
 import pygame
-screen=pygame.display.set_mode((1080,640))
-from pygame.locals import*
-pygame.display.set_caption('Street Fighter')
 from streetfighterclass import Sfighter
+from pygame.locals import*
+screen=pygame.display.set_mode((1080,640))
+pygame.display.set_caption('Street Fighter')
+import sys
+pygame.init()
 S1=Sfighter('p',140,440)
 S2=Sfighter('pD',780,440)
 clock=pygame.time.Clock()
@@ -31,13 +33,19 @@ white=(255,255,255)
 black=(0,0,0)
 p1health=300
 p2health=300
+def show_text(msg,x,y,color):
+    fontobj= pygame.font.SysFont('comicsans',20)
+    msgobj = fontobj.render(msg,False,color)
+    screen.blit(msgobj,(x,y))
 while True:
     clock.tick(5)
     pygame.display.update()
     screen.fill((0,0,0))
     screen.blit(Background,(0,0))
-    pygame.draw.rect(screen,green,(5,5,p1health,20))
-    pygame.draw.rect(screen,green,(775,5,p2health,20))
+    pygame.draw.rect(screen,(184,32,100),(2,5,p1health,20))
+    pygame.draw.rect(screen,(184,32,100),(1077,5,-p2health,20))
+    show_text('(Healthbar)',15,25,(184,32,100))
+    show_text('(Healthbar)',1000,25,(184,32,100))
     for event in pygame.event.get():
         if event.type==QUIT:
             pygame.quit()
@@ -133,6 +141,9 @@ while True:
     elif h==1:
         S1.Spritecount=0
         S1.Move(screen,S1.SpecialMove)
+        if S1.startx+175 > S2.startx:
+            print('specialmove')
+            p2health=p2health-100
     else:
         if S1.direction==0:
             screen.blit(S1.l[0],(S1.startx,S1.starty))
@@ -150,6 +161,9 @@ while True:
         S2.Move(screen,S2.Duck)
     elif m==1:
         S2.Move(screen,S2.SpecialMove)
+        if S2.startx-175 <= S1.startx:
+            print('punch2')
+            p1health=p1health-20
     else:
         if S2.direction==0:
             screen.blit(S2.l[0],(S2.startx,S2.starty))
