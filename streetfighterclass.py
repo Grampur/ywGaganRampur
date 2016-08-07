@@ -38,7 +38,7 @@ class Sfighter:
                     self.Jump.append(pygame.transform.flip(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)),True,False,))
                 if a==11 or a==12:
                     self.Duck.append(pygame.transform.flip(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)),True,False,))    
-                if a==13:
+                if a==13 or a==14:
                     self.SpecialMove.append(pygame.transform.flip(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(200,z)),True,False,))
     def Move(self,screen,Spritelist):
         self.Spritelist=Spritelist
@@ -52,7 +52,3 @@ class Sfighter:
             screen.blit(self.Spritelist[self.Spritecount],(self.startx,self.starty))
         else:
             screen.blit(pygame.transform.flip(self.Spritelist[self.Spritecount],True,False),(self.startx,self.starty))
-
-
-        
-    
