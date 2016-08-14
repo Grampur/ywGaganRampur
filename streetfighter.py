@@ -31,8 +31,8 @@ green=(0,255,0)
 blue=(0,0,255)
 white=(255,255,255)
 black=(0,0,0)
-p1health=300
-p2health=300
+p1health=400
+p2health=400
 def show_text(msg,x,y,color):
     fontobj= pygame.font.SysFont('comicsans',20)
     msgobj = fontobj.render(msg,False,color)
@@ -161,9 +161,10 @@ while True:
         S2.Move(screen,S2.Duck)
     elif m==1:
         S2.Move(screen,S2.SpecialMove)
+        p2health=p2health-25
         if S2.startx-175 <= S1.startx:
             print('punch2')
-            p1health=p1health-20
+            p1health=p1health-75            
     else:
         if S2.direction==0:
             screen.blit(S2.l[0],(S2.startx,S2.starty))

@@ -30,7 +30,7 @@ class Sfighter:
                 if a==10:
                     self.SpecialMove.append(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)))
         if image=='pD':
-            for a in range(0,14,1):
+            for a in range(0,15,1):
                 self.l.append(pygame.transform.flip(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)),True,False,))
                 if a==0 or a==1 or a==2 or a==3 or a==4 or a==5 or a==6:
                     self.RunForward.append(pygame.transform.flip(pygame.transform.scale(pygame.image.load('images/'+image+str(a)+'.png'),(z,z)),True,False,))
@@ -46,9 +46,7 @@ class Sfighter:
             self.Spritecount=self.Spritecount+1
             if self.Spritecount>=len(self.Spritelist) or len(self.Spritelist)==1:
                 self.Spritecount=0
-        #print(self.Spritecount,len(self.Spritelist))
         if self.direction==0:
-            #print('jo')
             screen.blit(self.Spritelist[self.Spritecount],(self.startx,self.starty))
         else:
             screen.blit(pygame.transform.flip(self.Spritelist[self.Spritecount],True,False),(self.startx,self.starty))

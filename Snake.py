@@ -43,6 +43,7 @@ while True:
     snakebody()
     pygame.draw.rect(screen,red,(foodx,foody,10,10),5)
     pygame.draw.rect(screen,green,(snakex,snakey,10,10),5)
+    
     show_text('Your score is:',460,5,blue)
     show_text(str(score),550,5,blue)
     if up==1:
