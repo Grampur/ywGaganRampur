@@ -126,7 +126,8 @@ while True:
         print(S1.startx,S2.startx)
         S1.Spritecount=0 
         S1.Move(screen,S1.Punch)
-        if S1.startx+175 > S2.startx:
+        print(S2.Duck)
+        if S1.startx+175 > S2.startx and S2.Duck==1:
             print('punch')
             p2health=p2health-25
     elif e==1:
@@ -141,6 +142,7 @@ while True:
     elif h==1:
         S1.Spritecount=0
         S1.Move(screen,S1.SpecialMove)
+        p1health=p1health-25
         if S1.startx+175 > S2.startx:
             print('specialmove')
             p2health=p2health-100

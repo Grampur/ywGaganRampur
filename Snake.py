@@ -43,9 +43,8 @@ while True:
     snakebody()
     pygame.draw.rect(screen,red,(foodx,foody,10,10),5)
     pygame.draw.rect(screen,green,(snakex,snakey,10,10),5)
-    
-    show_text('Your score is:',460,5,blue)
-    show_text(str(score),550,5,blue)
+    show_text('Your score is:',490,5,blue)
+    show_text(str(score),500,5,blue)
     if up==1:
         snakey=snakey-10
     if down==1:
@@ -63,7 +62,7 @@ while True:
         snakelength=snakelength+1
     print(snakelist)
     if 0>snakex or 640<snakey or 640<snakex or 0>snakey:
-        print('YOu lost the game')
+        print('You lost the game')
         sleep(2)
         pygame.quit()
         sys.exit()
