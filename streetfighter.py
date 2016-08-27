@@ -143,7 +143,7 @@ while True:
         S1.Spritecount=0
         S1.Move(screen,S1.SpecialMove)
         p1health=p1health-25
-        if S1.startx+175 > S2.startx:
+        if S1.startx < S2.startx+87 < S1.startx+175 :
             print('specialmove')
             p2health=p2health-100
     else:
@@ -164,7 +164,7 @@ while True:
     elif m==1:
         S2.Move(screen,S2.SpecialMove)
         p2health=p2health-25
-        if S2.startx-175 <= S1.startx:
+        if S2.startx < S1.startx+87 < S2.startx+175:
             print('punch2')
             p1health=p1health-75            
     else:
